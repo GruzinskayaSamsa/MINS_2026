@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "delivery.grpc";
+
+// Service B: справочники, валидация, эталонные расчёты для Service A
+service ReferenceService {
+  rpc ValidateZone (ValidateZoneRequest) returns (ValidateZoneResponse);
+  rpc CalculateDeliveryTime (CalculateTimeRequest) returns (CalculateTimeResponse);
+  rpc GetZoneBasePrice (GetZoneBasePriceRequest) returns (GetZoneBasePriceResponse);
+}
+
+message ValidateZoneRequest {
+  string zone = 1;
+  string trace_id = 2;
+}
+
+message ValidateZoneResponse {
+  bool valid = 1;
+  string message = 2;
+}
+
+message CalculateTimeRequest {
+  string zone = 1;
+  string trace_id = 2;
+}
+
+message CalculateTimeResponse {
+  int32 minutes = 1;
+}
+
+message GetZoneBasePriceRequest {
+  string zone = 1;
+  string trace_id = 2;
+}
+
+message GetZoneBasePriceResponse {
+  bool found = 1;
+  double base_price = 2;
+}
