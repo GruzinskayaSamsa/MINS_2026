@@ -1,0 +1,77 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "org.example.reference.api";
+option java_outer_classname = "ReferenceProto";
+
+package reference;
+
+service ReferenceService {
+  rpc ValidateClient(ValidateClientRequest) returns (ValidateClientResponse);
+  rpc ValidateTraining(ValidateTrainingRequest) returns (ValidateTrainingResponse);
+  rpc ValidateTrainingDraft(ValidateTrainingDraftRequest) returns (ValidateTrainingDraftResponse);
+  rpc ValidateTrainingForm(ValidateTrainingFormRequest) returns (ValidateTrainingFormResponse);
+  rpc RegisterClient(RegisterClientRequest) returns (RegisterClientResponse);
+  rpc RegisterTraining(RegisterTrainingRequest) returns (RegisterTrainingResponse);
+}
+
+message ValidateClientRequest {
+  int32 client_id = 1;
+}
+
+message ValidateClientResponse {
+  bool exists = 1;
+  string message = 2;
+}
+
+message ValidateTrainingRequest {
+  int32 training_id = 1;
+}
+
+message ValidateTrainingResponse {
+  bool exists = 1;
+  string message = 2;
+}
+
+message ValidateTrainingDraftRequest {
+  string name = 1;
+  int32 duration_minutes = 2;
+  int32 max_participants = 3;
+}
+
+message ValidateTrainingDraftResponse {
+  bool valid = 1;
+  string message = 2;
+}
+
+message ValidateTrainingFormRequest {
+  string name = 1;
+  string description = 2;
+  string duration_minutes = 3;
+  string max_participants = 4;
+}
+
+message ValidateTrainingFormResponse {
+  bool valid = 1;
+  string message = 2;
+  int32 parsed_duration_minutes = 3;
+  int32 parsed_max_participants = 4;
+}
+
+message RegisterClientRequest {
+  int32 client_id = 1;
+  string name = 2;
+}
+
+message RegisterClientResponse {
+  bool success = 1;
+}
+
+message RegisterTrainingRequest {
+  int32 training_id = 1;
+  string name = 2;
+}
+
+message RegisterTrainingResponse {
+  bool success = 1;
+}
